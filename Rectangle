@@ -1,0 +1,64 @@
+#include <kipr/wombat.h>
+int mr = 0;
+int ml = 2;
+void stop(){
+    for(int i = 1035; i >= 0; i-= 100){
+        if(i>35){
+            mav(mr, i);
+        	mav(ml, i-35);
+        }
+        else{
+            mav(mr,0);
+            mav(ml,0);
+        }
+        msleep(50);
+    }
+}
+
+void stopRight(){
+    for(int i = 1000; i >= 0; i-= 100){
+        mav(ml, i);
+        mav(mr, 0);
+        msleep(50);
+    }
+}
+
+void forward(int time){
+    for(int i = 0; i <= 1035; i += 50){
+        int ir=i+30;
+        mav(mr, ir);
+        mav(ml, i);
+        msleep(50);
+    }
+    msleep(time);
+}
+
+
+
+void right(int time){
+    for(int i = 0; i <= 1000; i += 50){
+        mav(ml, i);
+        mav(mr, 0);
+        msleep(50);
+    }
+    msleep(time);
+}
+
+
+
+
+void rectangle(int time, int timeturn){
+    while(1){
+    	forward(time);
+        stop();
+        mav(ml, 1000);
+        mav(mr, 0);
+    	right(timeturn);
+        stopRight();
+    }
+}
+int main()
+{	
+    rectangle(3000,1550);
+    return 0;
+}
